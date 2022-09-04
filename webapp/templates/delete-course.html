@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Delete course</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>Delete course</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<form style = "display: none" id = "id_università" method = "post" action = "manage-university-courses">
+			<input name = "id_università" type = "text" value = {{corso.id_università}} />
+		</form>
+		<button class = "cursore2" type = "submit" form = "id_università">
+		Back
+		</button>
+	</div>
+
+	<div class = "principale_left">
+	<div class = "sottocontenitore">
+		<h3 style = "font-size: 25px">You are deleting the course {{corso.nome_corso}} taugth in 
+		{% for università in elenco_università %}
+		{% if corso.id_università == università.id_università %}
+		{{università.nome_università}}.
+		{% endif %}
+		{% endfor %}
+		</h3>
+		<p style = "font-size: 20px">Here the course details. Are you sure?</p>
+		
+		<table class = "tabella_visualizzazione">
+			<thead>
+				<tr>
+					<th>Course name</th>
+					<th>Field of study</th>
+					<th>Study level</th>
+					<th>Semester</th>
+					<th>Language</th>
+					<th>ECTS</th>
+					<th>Site link</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class = "td_visualizzazione">
+					{{corso.nome_corso}}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for campo in elenco_campi %}
+					{% if corso.id_campo == campo.id_campo %}
+					{{campo.nome_campo}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for grado in elenco_gradi %}
+					{% if corso.id_grado == grado.id_grado %}
+					{{grado.nome_grado}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for semestre in elenco_semestri %}
+					{% if corso.id_semestre == semestre.id_semestre %}
+					{{semestre.nome_semestre}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for lingua in elenco_lingue %}
+					{% if corso.id_lingua == lingua.id_lingua %}
+					{{lingua.nome_lingua}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{{corso.ects}}
+					</td>
+					<td class = "td_visualizzazione">
+					<a href = "{{corso.link}}" target="_blank" ><img src="{{ url_for('static', filename='website.png') }}" title="Visit course website"/></a>
+					</td>
+					</tr>
+			</tbody>
+		</table>
+		
+		<form method = "post" action = "delete-course">
+		<input style = "display: none" name = "id_corso" type = "text" value = {{corso.id_corso}} /> <!-- attenzione allo spazio tra {{corso.id_corso}} e / -->
+		<input style = "display: none" name = "id_università" type = "text" value = {{corso.id_università}} />
+		<table>
+		<tr>
+		<td><input class = "pulsante_elimina" type = "submit" value = "Delete {{corso.nome_corso}}"/>
+		</form>
+		
+		<form style = "display: none" id = "id_università" method = "post" action = "manage-university-courses">
+		<input style = "display: none" name = "id_università" type = "text" value = {{corso.id_università}} />
+		</form>
+		<button type = "submit" form = "id_università">
+		Back
+		</button></td>
+		</tr>
+		</table>
+		
+	</div>
+	
+</div>
+<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

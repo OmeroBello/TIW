@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Homepage</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+#banner {
+	display: block;
+	padding-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+button {
+  margin: 200px 30px 30px auto;
+}
+
+h2 {
+	text-align: center;
+	font-size: 30px;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header_HP">
+		<img id= "banner" src="{{ url_for('static', filename='Easy_Erasmus_Logo-removebg-preview-little.png') }}"/>
+		<h2>Start off your Erasmus Experience on the right foot!</h2>
+	</div>
+
+	<div class = "principale_HP">
+		<a href = "student"><button type = "button">Are you a student?</button></a>
+		<a href = "info"><button type = "button">Info about EE :)</button></a>
+		<a href = "university"><button type = "button">Are you an University?</button></a>
+	</div>
+	
+</div>
+<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Manage courses</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+#add {
+	height: 20px;
+}
+</style>
+
+<script>
+function sbloccaBottone() {
+	var nome_corso = document.getElementById("id_nome_corso").value;
+	var campo_corso = document.getElementById("id_campo_corso").value;
+	var grado_corso = document.getElementById("id_grado_corso").value;
+	var semestre_corso = document.getElementById("id_semestre_corso").value;
+	var lingua_corso = document.getElementById("id_lingua_corso").value;
+	var link_corso = document.getElementById("id_link_corso").value;
+	var ects_corso = document.getElementById("id_ects_corso").value;
+	var ECTS = document.getElementById("id_ects_corso").value;
+	
+	if (nome_corso == "" || campo_corso == "---" || grado_corso == "---" || semestre_corso == "---" || lingua_corso == "---" || ects_corso == "" || isNaN(ECTS) || link_corso == "") {
+		document.getElementById("bottone_invio").className = "pulsante_bloccato";
+	}
+	else {
+		document.getElementById("bottone_invio").className = "pulsante_invio";
+	}
+}
+
+function verificaECTS() {
+	var ECTS = document.getElementById("id_ects_corso").value;
+	
+	if(isNaN(ECTS)) {
+		alert("ECTS should be a number!");
+		document.getElementById("bottone_invio").className = "pulsante_bloccato";
+	}
+	
+	sbloccaBottone();
+}
+</script>
+
+</head>
+
+<body onload = "sbloccaBottone()">
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>Manage courses</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<a href = "choose-university"><button class = "cursore2" type = "button">Back</button></a>
+	</div>
+	
+	<div class = "principale_left">
+	<div class = "sottocontenitore">
+		<h2 style = "text-align: center">{{messaggio}}</h2>
+		<h3 style = "font-size: 25px">Manage {{università.nome_università}} courses!</h3>
+		<p style = "font-size: 20px"><img id = "add" src="{{ url_for('static', filename='aggiungi.png') }}"/>Add below the details of the new course you would like to add to {{università.nome_università}} catalog.</p>
+		
+		<form method = "post" action = "add-course">
+		<tr><td><input style = "display: none" name = "id_università" type = "text" value = {{università.id_università}} /></td></tr>
+			<table class = "tabella_inserimento">
+			<tr><td class = "td_modifica">Course name:<input onchange = "sbloccaBottone()" id = "id_nome_corso" name = "course_name" /></td></tr>
+			<tr><td class = "td_modifica">Course field:
+			<select onchange = "sbloccaBottone()" id = "id_campo_corso" name = "course_field">
+				<option value = "---">---</option>
+				{% for campo in elenco_campi %}
+				<option value = "{{campo.id_campo}}"> {{campo.nome_campo}} </option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica">Course level:
+			<select onchange = "sbloccaBottone()" id = "id_grado_corso" name = "course_level">
+				<option value = "---">---</option>
+				{% for grado in elenco_gradi %}
+				<option value = "{{grado.id_grado}}"> {{grado.nome_grado}} </option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica">Course semester:
+			<select onchange = "sbloccaBottone()" id = "id_semestre_corso" name = "course_semester">
+				<option value = "---">---</option>
+				{% for semestre in elenco_semestri %}
+				<option value = "{{semestre.id_semestre}}"> {{semestre.nome_semestre}} </option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica">Course language:
+			<select onchange = "sbloccaBottone()" id = "id_lingua_corso" name = "course_language">
+				<option value = "---">---</option>
+				{% for lingua in elenco_lingue %}
+				<option value = "{{lingua.id_lingua}}"> {{lingua.nome_lingua}} </option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica">Course ECTS:<input type= "number" onchange = "verificaECTS()" id = "id_ects_corso" name = "course_ects" /></td></tr>
+			<tr><td class = "td_modifica">Course link to its website:<input onchange = "sbloccaBottone()" id = "id_link_corso" name = "course_link" /></td></tr>
+			<tr><td class = "td_modifica"><div style = "cursor: not-allowed; width: 250px"><input id = "bottone_invio" class = "pulsante_invio" type = "submit" value = "Add course" /></div></tr></td>
+			</table>
+		</form>
+		
+		<h3 style = "font-size: 25px">Courses currently added in the University catalog.</h3>
+		
+		<table class = "tabella_visualizzazione">
+			<thead>
+				<tr>
+					<th>Course name</th>
+					<th>Field of study</th>
+					<th>Study level</th>
+					<th>Semester</th>
+					<th>Language</th>
+					<th>ECTS</th>
+					<th>Site link</th>
+					<th colspan = "2">Tools</th>
+				</tr>
+			</thead>
+			<tbody id = "body">
+				<script>
+				var contatore = 0;
+				</script>
+				{% for corso in corsi_università %}
+				<tr>
+					<script>
+					contatore = contatore + 1;
+					</script>
+					<td class = "td_visualizzazione">
+					{{corso.nome_corso}}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for campo in elenco_campi %}
+					{% if corso.id_campo == campo.id_campo %}
+					{{campo.nome_campo}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for grado in elenco_gradi %}
+					{% if corso.id_grado == grado.id_grado %}
+					{{grado.nome_grado}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for semestre in elenco_semestri %}
+					{% if corso.id_semestre == semestre.id_semestre %}
+					{{semestre.nome_semestre}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for lingua in elenco_lingue %}
+					{% if corso.id_lingua == lingua.id_lingua %}
+					{{lingua.nome_lingua}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{{corso.ects}}
+					</td>
+					<td class = "td_visualizzazione">
+					<a href = "{{corso.link}}" target="_blank" ><img src="{{ url_for('static', filename='website.png') }}" title="Visit course website"/></a>
+					</td>
+					<td class = "td_visualizzazione">
+						<form style = "display: none" id = "modifica_{{corso.id_corso}}" method = "post" action = "edit-course-page">
+							<input name = "id_corso" type = "text" value = {{corso.id_corso}} />
+						</form>
+						<button class = "strumento" type = "submit" form = "modifica_{{corso.id_corso}}">
+							<img src="{{ url_for('static', filename='modifica.png') }}" title="Edit"/>
+						</button>
+					</td>
+					<td class = "td_visualizzazione">
+						<form style = "display: none" id = "elimina_{{corso.id_corso}}" method = "post" action = "delete-course-page">
+							<input name = "id_corso" type = "text" value = {{corso.id_corso}} />
+						</form>
+						<button class = "strumento" type = "submit" form = "elimina_{{corso.id_corso}}">
+							<img src="{{ url_for('static', filename='elimina.png') }}" title="Delete"/>
+						</button>
+					</td>
+				</tr>
+				{% endfor %}
+				<script>
+				if (contatore == 0) {
+					document.getElementById("body").innerHTML = "<tr><td style = 'font-size: 23px' colspan = '8'><b>No courses in this University yet!<b></td></tr>";
+				}
+				</script>
+			</tbody>
+		</table>
+
+	</div>
+	</div>
+	<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

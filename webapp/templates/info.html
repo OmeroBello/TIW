@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Information</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+.frasi {
+	font-size: 25px;
+}
+</style>
+
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina">Information page regarding EE :)</h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Back to the homepage</button></a>
+	</div>
+
+	<div class = "principale_left">
+	<div class = "sottocontenitore">
+		<p class = "frasi">Are you wishing to do an Erasmus Experience but you don't know where to search for courses?</p>
+		<p class = "frasi">Are you tired of surfing on Universities' websites looking for courses where findind the secret of happines seems to be easier?</p>
+		<p class = "frasi">Are you an University and do you wish to empower the connections between European youths in the near future?</p>
+	
+		<h2 style = "text-align: center; font-size: 40px">EE has the answer for all of these!</h2>
+	
+		<p class = "frasi">EE is a application website co-founded by the Erasmus+ Programme of the European Union which wants to follow and help Erasmus students by giving them an easy and cler tool to search for compatible courses with their academic career.</p>
+		<p class = "frasi">Here, you'll be able to search for courses by Universities and to read information about them!</p>
+		<p class = "frasi">Other than that, you'll be able also to create a simplified Learning Agreement where to check your convertions and ECTS number!</p>
+		<p class = "frasi">Are you an University? You'll be able to load in the application's database your courses so they'll show up to students searching for them!</p>
+	</div>
+	</div>
+	
+</div>
+<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

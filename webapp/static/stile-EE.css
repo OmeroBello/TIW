@@ -1,0 +1,279 @@
+html {
+	background-color: #003399;
+	font-family: sans-serif;
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	height: 100%;
+}
+
+button {
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.strumento {
+	background-color: white;
+	border-collapse: collapse;
+	border-style: none;
+	border-width: 0px;
+    margin: 0px 8px;
+	padding: 0px;	
+}
+
+.strumento:hover {
+	background-color: unset;
+    color: unset;
+}
+
+.tabella_visualizzazione, .td_visualizzazione{  
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.td_visualizzazione_50 {
+	border: 1px solid #ddd;
+	text-align: center;
+	width: 50%;
+}
+
+.td_visualizzazione_45 {
+	border: 1px solid #ddd;
+	text-align: center;
+	width: 45%;
+}
+
+.td_visualizzazione_5 {
+	border: 1px solid #ddd;
+	text-align: center;
+	width: 5%;
+}
+
+th {  
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 23px;
+  padding: 15px;
+}
+
+.tabella_inserimento{  
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.td_modifica {
+	border: 1px solid #ddd;
+	text-align: left;
+	font-size: 25px;
+	padding: 15px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+	font-size: 20px;
+	padding: 15px;
+}
+
+input, select {
+	transition-duration: 0.4s;
+    font-size: 25px;
+	border: none;
+	border-bottom: 2px solid #003399;
+    padding-left: 0px;
+    width: 95%;
+}
+
+input:hover ,select:hover {
+    background-color: #cce0ff;
+    border: solid 1px #42649B;		
+}
+
+.pulsante_invio {
+	background-color: white; 
+	width: 250px;
+	border: 2px solid #39ac39;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	cursor: pointer;
+}
+
+.pulsante_invio:hover {
+	background-color: #39ac39;
+	border: 2px solid #39ac39;
+	color: white;
+}
+
+.pulsante_modifica {
+	background-color: white; 
+	width: 250px;
+	border: 2px solid #e6b800;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	cursor: pointer;
+}
+
+.pulsante_modifica:hover {
+	background-color: #e6b800;
+	border: 2px solid #e6b800;
+	color: white;
+}
+
+.pulsante_bloccato {
+	background-color: #e0e0eb; 
+	width: 250px;
+	border: 2px solid;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.pulsante_bloccato:hover {
+	background-color: #e0e0eb; 
+	width: 250px;
+	border: 2px solid;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.pulsante_elimina {
+	background-color: white; 
+	border: 2px solid #cc0000;
+	padding-top: 15px;
+    padding-bottom: 15px;
+	cursor: pointer;
+	width: 70%;
+}
+
+.pulsante_elimina:hover {
+	background-color: #cc0000;
+	border: 2px solid #cc0000;
+	color: white;
+}
+
+#logo{
+	height: 75px;
+	padding-top: 10px;
+}
+
+#founded {	
+    position: absolute;
+    bottom: 20px;
+    left: 1350px;
+    width: 250px;
+}
+
+.dettaglio_pagina {
+	text-align: center;
+    position: relative;
+    bottom: 60px;
+	left: 400px;
+    font-size: 30px;
+	border-bottom-style: solid;
+	border-color: #FFCC00;
+	width: 40%;
+	
+}
+
+.cursore1 {
+	font-size: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 13px;
+	position: relative;
+    bottom: 85px;
+    right: 3px;
+}
+
+.cursore2 {
+	font-size: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 13px;
+	position: relative;
+    bottom: 85px;
+    right: 10px;
+}
+
+.contenitore {
+	height: 100%;
+}
+
+.header_HP {
+	color: white;
+	height: 25%;
+	width: 70%;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #4da6ff;
+	margin-bottom: 10px;
+}
+
+.header {
+	color: white;
+	height: 15%;
+	width: 70%;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #4da6ff;
+	margin-bottom: 10px;
+}
+
+.principale {
+	text-align: center;
+	background-color: white;
+	height: 70%;
+	width: 70%;
+	margin: auto;
+}
+
+.principale_HP {
+	text-align: center;
+	background-color: white;
+	height: 60%;
+	width: 70%;
+	margin: auto;
+}
+
+.principale_left {
+	text-align: left;
+	background-color: white;
+	height: 70%;
+	width: 70%;
+	margin: auto;
+}
+
+.sottocontenitore {
+	height: 670px;
+    padding-top: 5px;
+    padding-left: 15px;
+	padding-right: 15px;
+	overflow: scroll;
+    overflow-x: hidden;
+}
+

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - LA</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+input, select {
+	font-size: 21px;
+	text-align: center;
+}
+</style>
+
+<script src="static/funzioni_LA.js"></script>
+
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>LA simulation</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<a href = "LA"><button class = "cursore2" type = "button">Back</button></a>
+	</div>
+
+	<div class = "principale">
+	<div class = "sottocontenitore">
+		<h2>Simulate your Learning Agreement!</h2>
+		
+		<table class = "tabella_visualizzazione">
+			<tr>
+				<td colspan = "2" class = "td_visualizzazione_50"><b>Courses at
+				{% for università in elenco_università %}
+				{% if id_sending == università.id_università %}
+				{{università.nome_università}}
+				{% endif %}
+				{% endfor %}
+				</b></td>
+				<td colspan = "2" class = "td_visualizzazione_50"><b>Courses at
+				{% for università in elenco_università %}
+				{% if id_receiving == università.id_università %}
+				{{università.nome_università}}
+				{% endif %}
+				{% endfor %}
+				</b></td>
+			</tr>
+			
+			<tr>
+				<td style = "font-weight: bold" class = "td_visualizzazione_45">Sending courses</td>
+				<td style = "font-weight: bold" class = "td_visualizzazione_5">ECTS</td>
+				<td style = "font-weight: bold" class = "td_visualizzazione_45">Receiving courses</td>
+				<td style = "font-weight: bold" class = "td_visualizzazione_5">ECTS</td>
+			</tr>
+			<tr>
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_sending_1" onchange = "rileva_corso_sending_1()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_sending %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_sending_1" class = "td_visualizzazione_5"></td>
+				
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_receiving_1" onchange = "rileva_corso_receiving_1()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_receiving %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_receiving_1" class = "td_visualizzazione_5"></td>
+			</tr>
+			
+			<tr>
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_sending_2" onchange = "rileva_corso_sending_2()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_sending %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_sending_2" class = "td_visualizzazione_5"></td>
+				
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_receiving_2" onchange = "rileva_corso_receiving_2()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_receiving %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_receiving_2" class = "td_visualizzazione_5"></td>
+			</tr>
+			
+			<tr>
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_sending_3" onchange = "rileva_corso_sending_3()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_sending %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_sending_3" class = "td_visualizzazione_5"></td>
+				
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_receiving_3" onchange = "rileva_corso_receiving_3()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_receiving %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_receiving_3" class = "td_visualizzazione_5"></td>
+			</tr>
+			
+			<tr>
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_sending_4" onchange = "rileva_corso_sending_4()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_sending %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_sending_4" class = "td_visualizzazione_5"></td>
+				
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_receiving_4" onchange = "rileva_corso_receiving_4()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_receiving %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_receiving_4" class = "td_visualizzazione_5"></td>
+			</tr>
+			
+			<tr>
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_sending_5" onchange = "rileva_corso_sending_5()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_sending %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_sending_5" class = "td_visualizzazione_5"></td>
+				
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_receiving_5" onchange = "rileva_corso_receiving_5()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_receiving %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_receiving_5" class = "td_visualizzazione_5"></td>
+			</tr>
+			
+			<tr>
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_sending_6" onchange = "rileva_corso_sending_6()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_sending %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_sending_6" class = "td_visualizzazione_5"></td>
+				
+				<td class = "td_visualizzazione_45">
+				<select id = "course_selected_receiving_6" onchange = "rileva_corso_receiving_6()">
+				<option value = "---">---</option>
+				<option value = "free">Free credits</option>
+				{% for corso in elenco_corsi %}
+				{% if corso.id_università == id_receiving %}
+				<option value = "{{corso.nome_corso}} - {{corso.ects}} ECTS">
+				{{corso.nome_corso}} - {{corso.ects}} ECTS
+				</option>
+				{% endif %}
+				{% endfor %}
+				</select>
+				</td>
+				<td  id = "ects_course_selected_receiving_6" class = "td_visualizzazione_5"></td>
+			</tr>
+			
+			<tr>
+			<td style = "font-weight: bold" id = "somma_ects_sending" colspan = "2" class = "td_visualizzazione">Sending ECTS sum: 0</td>
+			<td style = "font-weight: bold" id = "somma_ects_receiving" colspan = "2" class = "td_visualizzazione">Receiving ECTS sum: 0</td>
+			</tr>
+		</table>
+		
+		<tabLe style = "border: none">
+		<tr style = "border: none"><td id = "messaggio_errore" style = "border: none; font-weight: bold; color: red" colspan = "4">&nbsp;</td></tr>
+		</table>
+		
+	</div>
+	</div>
+<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

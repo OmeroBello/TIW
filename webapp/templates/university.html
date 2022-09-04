@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - University</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+.button_university {
+  position: relative;
+  top: 200px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+</style>
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina">University section</h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Back to the homepage</button></a>
+	</div>
+
+	<div class = "principale">
+	
+		<a href = "add-university-page"><button class = "button_university" type = "button">Add/Modify your university</button></a>
+		<a href = "choose-university"><button class = "button_university" type = "button">See and add courses to your university</button></a>
+	
+	</div>
+	
+</div>
+<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

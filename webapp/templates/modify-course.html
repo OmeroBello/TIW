@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Edit course</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+.td_modifica {
+	font-size: 20px;
+}
+input, select {
+    font-size: 20px;
+}
+</style>
+
+<script>
+
+function sbloccaBottone() {
+	var nome_corso = document.getElementById("id_nome_corso").value;
+	var link_corso = document.getElementById("id_link_corso").value;
+	var ects_corso = document.getElementById("id_ects_corso").value;
+	var ECTS = document.getElementById("id_ects_corso").value;
+	
+	if (nome_corso == "" || ects_corso == "" || isNaN(ECTS) || link_corso == "") {
+		document.getElementById("bottone_modifica").className = "pulsante_bloccato";
+	}
+	else {
+		document.getElementById("bottone_modifica").className = "pulsante_modifica";
+	}
+}
+
+function verificaECTS() {
+	var ECTS = document.getElementById("id_ects_corso").value;
+	
+	if(isNaN(ECTS)) {
+		alert("ECTS should be a number!");
+		document.getElementById("bottone_modifica").className = "pulsante_bloccato";
+	}
+	
+	sbloccaBottone();
+}
+</script>
+
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>Edit course</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<form style = "display: none" id = "id_università" method = "post" action = "manage-university-courses">
+			<input name = "id_università" type = "text" value = {{corso.id_università}} />
+		</form>
+		<button class = "cursore2" type = "submit" form = "id_università">
+		Back
+		</button>
+	</div>
+
+	<div class = "principale_left">
+	<div class = "sottocontenitore">
+		<h3 style = "font-size: 25px">You are editing the course {{corso.nome_corso}} taugth in 
+		{% for università in elenco_università %}
+		{% if corso.id_università == università.id_università %}
+		{{università.nome_università}}
+		{% endif %}
+		{% endfor %}
+		</h3>
+		<p style = "font-size: 20px">Please modify here below the course details.</p>
+		
+		
+		<form method = "post" action = "edit-course">
+			<table class = "tabella_inserimento">
+			<input style = "display: none" name = "id_corso" type = "text" value = {{corso.id_corso}} />
+			<input style = "display: none" name = "id_università" type = "text" value = {{corso.id_università}} />
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course name: </td><td class = "td_modifica">{{corso.nome_corso}}</td></tr>
+			<tr><td class = "td_modifica">New course name: </td><td><input onchange = "sbloccaBottone()" id = "id_nome_corso" type = "text" name = "new_name_corso" value = "{{corso.nome_corso}}"/></td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course field of study: </td>
+			<td class = "td_modifica">
+			{% for campo in elenco_campi %}
+			{% if corso.id_campo == campo.id_campo %}
+			{{campo.nome_campo}}
+			{% endif %}
+			{% endfor %}
+			</td></tr>
+			<tr><td class = "td_modifica">New course field of study:</td><td class = "td_modifica">
+			<select name = "new_field_corso">
+				{% for campo in elenco_campi %}
+				<option value = "{{campo.id_campo}}" {% if corso.id_campo == campo.id_campo %} selected {% endif %}> 
+				{{campo.nome_campo}} 
+				</option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course study level: </td>
+			<td class = "td_modifica">
+			{% for grado in elenco_gradi %}
+			{% if corso.id_grado == grado.id_grado %}
+			{{grado.nome_grado}}
+			{% endif %}
+			{% endfor %}
+			</td></tr>
+			<tr><td class = "td_modifica">New course study level:</td><td class = "td_modifica">
+			<select name = "new_level_corso">
+				{% for grado in elenco_gradi %}
+				<option value = "{{grado.id_grado}}" {% if corso.id_grado == grado.id_grado %} selected {% endif %}> 
+				{{grado.nome_grado}} 
+				</option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course semester: </td>
+			<td class = "td_modifica">
+			{% for semestre in elenco_semestri %}
+			{% if corso.id_semestre == semestre.id_semestre %}
+			{{semestre.nome_semestre}}
+			{% endif %}
+			{% endfor %}
+			</td></tr>
+			<tr><td class = "td_modifica">New course semester:</td><td class = "td_modifica">
+			<select name = "new_semester_corso">
+				{% for semestre in elenco_semestri %}
+				<option value = "{{semestre.id_semestre}}" {% if corso.id_semestre == semestre.id_semestre %} selected {% endif %}> 
+				{{semestre.nome_semestre}} 
+				</option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course language: </td>
+			<td class = "td_modifica">
+			{% for lingua in elenco_lingue %}
+			{% if corso.id_lingua == lingua.id_lingua %}
+			{{lingua.nome_lingua}}
+			{% endif %}
+			{% endfor %}
+			</td></tr>
+			<tr><td class = "td_modifica">New course language:</td><td class = "td_modifica">
+			<select name = "new_language_corso">
+				{% for lingua in elenco_lingue %}
+				<option value = "{{lingua.id_lingua}}" {% if corso.id_lingua == lingua.id_lingua %} selected {% endif %}> 
+				{{lingua.nome_lingua}} 
+				</option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course ECTS number: </td><td class = "td_modifica">{{corso.ects}}</td></tr>
+			<tr><td class = "td_modifica">New course ECTS number: </td><td class = "td_modifica"><input type= "number" onchange = "verificaECTS()" id = "id_ects_corso" type = "text" name = "new_ects_corso" value = "{{corso.ects}}"/></td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original course link: </td><td class = "td_modifica">{{corso.link}}</td></tr>
+			<tr><td class = "td_modifica">New course link: </td><td class = "td_modifica"><input onchange = "sbloccaBottone()" id = "id_link_corso" type = "text" name = "new_link_corso" value = "{{corso.link}}"/></td></tr>
+			<tr><td class = "td_modifica" colspan = 2><div style = "cursor: not-allowed; width: 250px"><input id = "bottone_modifica" class = "pulsante_modifica" type = "submit" value = "Edit course"/></div></tr></td>
+			</table>
+		</form>
+		
+	</div>
+	</div>
+	<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

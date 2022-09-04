@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Edit university</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<script>
+
+function sbloccaBottone() {
+	var nome_università = document.getElementById("id_nome_università").value;
+	
+	if (nome_università == "") {
+		document.getElementById("bottone_modifica").className = "pulsante_bloccato";
+	}
+	else {
+		document.getElementById("bottone_modifica").className = "pulsante_modifica";
+	}
+}
+
+</script>
+
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>Edit University details</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<a href = "add-university-page"><button class = "cursore2" type = "button">Back</button></a>
+	</div>
+
+	<div class = "principale_left">
+	<div class = "sottocontenitore">
+		<h3 style = "font-size: 25px">You are editing {{università.nome_università}} located in 
+		{% for paese in elenco_paesi %}
+		{% if paese.id_paese == università.paese_università %}
+		{{paese.nome_paese}}
+		{% endif %}
+		{% endfor %}
+		</h3>
+		<p style = "font-size: 20px">Please modify here below the University name and/or its location.</p>
+		
+		
+		<form method = "post" action = "edit-university">
+			<table class = "tabella_inserimento">
+			<input style = "display: none" name = "id_università" type = "text" value = {{università.id_università}} />
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original University Name: </td><td class = "td_modifica">{{università.nome_università}}</td></tr>
+			<tr><td class = "td_modifica">New University name: </td><td><input onchange = "sbloccaBottone()" id = "id_nome_università" type = "text" name = "new_university_name" value = "{{università.nome_università}}"/></td></tr>
+			<tr><td class = "td_modifica" style = "font-weight: bold">Original University country: </td>
+			<td class = "td_modifica">
+			{% for paese in elenco_paesi %}
+			{% if paese.id_paese == università.paese_università %}
+			{{paese.nome_paese}}
+			{% endif %}
+			{% endfor %}
+			</td></tr>
+			<tr><td class = "td_modifica">New University country:</td>
+			<td td class = "td_modifica">
+			<select name = "new_university_country">
+				{% for paese in elenco_paesi %}
+				<option value = "{{paese.id_paese}}" {% if paese.id_paese == università.paese_università %} selected {% endif %}> 
+				{{paese.nome_paese}} 
+				</option>
+				{% endfor %}
+			</select>
+			</td></tr>
+			<tr><td colspan = 2><div style = "cursor: not-allowed; width: 250px"><input id = "bottone_modifica" class = "pulsante_modifica" type = "submit" value = "Edit University"/></div></tr></td>
+			</table>
+		</form>
+		
+	</div>
+	</div>
+	<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

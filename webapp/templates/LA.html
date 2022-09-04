@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - LA</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.tb_bianca, .tr_bianca, .td_bianca {
+	border: none;
+}
+</style>
+
+<script>
+
+function sbloccaBottone() {
+	sending = document.getElementById("sending").value;
+	receiving = document.getElementById("receiving").value;
+	
+	if (sending == "---" || receiving == "---") {
+		document.getElementById("pulsante_setta").className = "pulsante_bloccato";
+	}
+	else if (sending == receiving) {
+		alert("Please choose two different Universities!");
+		document.getElementById("pulsante_setta").className = "pulsante_bloccato";
+	}
+	else {
+		document.getElementById("pulsante_setta").className = "pulsante_invio";
+	}
+	
+}
+
+</script>
+
+</head>
+
+<body onload = "sbloccaBottone()">
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>LA simulation</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<a href = "student"><button class = "cursore2" type = "button">Back</button></a>
+	</div>
+
+	<div class = "principale">
+	<div class = "sottocontenitore">
+		<h2>Simulate your Learning Agreement!</h2>
+		
+	<form method = "post" action = "set-LA-universities">
+		<table class = "tb_bianca">
+			<tr>
+				<td class = "td_visualizzazione"><b>Choose your sending University</b></td ><td class = "td_visualizzazione"><b>Choose your receiving University</b></td>
+			</tr>
+			<tr>
+				<td class = "td_visualizzazione">
+				<select name = "sending_university" id = "sending" onchange = "sbloccaBottone()">
+				<option>---</option>
+				{% for università in elenco_università %}
+				<option value = "{{università.id_università}}"> 
+				{{università.nome_università}} 
+				</option>
+				{% endfor %}
+				</select>
+				</td>
+				<td class = "td_visualizzazione">
+				<select name = "receiving_university" id = "receiving" onchange = "sbloccaBottone()">
+				<option>---</option>
+				{% for università in elenco_università %}
+				<option value = "{{università.id_università}}"> 
+				{{università.nome_università}} 
+				</option>
+				{% endfor %}
+				</select>
+				</td>
+			</tr>
+			<tr class = "tr_bianca"><td class = "td_bianca" colspan = "2"><div style = "cursor: not-allowed"><input id = "pulsante_setta" class = "pulsante_invio" type = "submit" value ="Set Universities" /></div></td></tr>
+		</table>
+	</form>
+	</div>
+	</div>
+<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>EE - Universities list</title>
+<link rel="icon" type="image/x-icon" href="/static/EE.ico">
+<link rel="stylesheet" href="{{ url_for('static', filename='stile-EE.css') }}" type="text/css" media="all" />
+</head>
+
+<body>
+<div class = "contenitore">
+
+	<div class = "header">
+		<img id= "logo" src="{{ url_for('static', filename='EE_Logo-removebg-preview-little.png') }}"/>
+		<h2 class = "dettaglio_pagina"><b>Courses section</b></h2>
+		<a href = "homepage"><button class = "cursore1" type = "button">Homepage</button></a>
+		<a href = "university"><button class = "cursore2" type = "button">Back</button></a>
+	</div>
+
+	<div class = "principale_left">
+	<div class = "sottocontenitore">
+		<h3 style = "font-size: 25px">Choose an University for which you want to manage the courses.</h3>
+		<p style = "font-size: 20px">You can't find your University? Go to the "Add University" section and add it!</p>
+		
+		<table class = "tabella_visualizzazione">
+			<thead>
+				<tr>
+					<th>University</th>
+					<th>Country</th>
+					<th>Number of courses</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for università in elenco_università %}
+				<tr>
+					<td class = "td_visualizzazione">{{università.nome_università}}</td>
+					<td class = "td_visualizzazione">
+					{% for paese in elenco_paesi %}
+					{% if paese.id_paese == università.paese_università %}
+					{{paese.nome_paese}}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+					{% for università2 in elenco_numero_corsi_per_università %}
+					{% if università2.id_università == università.id_università %}
+					{{ università2.numero_corsi }}
+					{% endif %}
+					{% endfor %}
+					</td>
+					<td class = "td_visualizzazione">
+						<form style = "display: none" id = "choose_{{università.id_università}}" method = "post" action = "manage-university-courses">
+							<input name = "id_università" type = "text" value = {{università.id_università}} />
+						</form>
+						<button type = "submit" form = "choose_{{università.id_università}}">
+							Manage courses
+						</button>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+	</div>
+	<img id= "founded" src="{{ url_for('static', filename='founded.png') }}"/>
+</body>
+</html>
